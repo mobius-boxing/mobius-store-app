@@ -1,0 +1,72 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar",
+    "actions": "Acciones",
+    "yes": "Sí",
+    "no": "No",
+    "confirm": "Confirmar",
+    "optional": "Opcional",
+    "note": "Nota",
+    "back": "Volver",
+    "next": "Siguiente",
+    "viewAll": "Ver Todo",
+    "noResults": "No se encontraron resultados"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "catalog": "Catálogo",
+    "orders": "Pedidos",
+    "cart": "Carrito",
+    "manageCatalog": "Gestionar Catálogo",
+    "signOut": "Cerrar Sesión"
+  },
+  "login": {
+    "title": "Mobius Store",
+    "subtitle": "Inicie sesión para acceder a la plataforma de pedidos",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ingrese su correo",
+    "emailRequired": "El correo es requerido",
+    "emailInvalid": "Ingrese un correo válido",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Ingrese su contraseña",
+    "passwordRequired": "La contraseña es requerida",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "signIn": "Iniciar Sesión",
+    "invalidCredentials": "Correo o contraseña inválidos"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "¡Bienvenido, {{name}}!",
+    "subtitle": "Resumen de tu plataforma de pedidos",
+    "recentOrders": "Pedidos Recientes",
+    "noOrders": "Aún no hay pedidos",
+    "browseCatalog": "Explorar Catálogo",
+    "browseCatalogDesc": "Explora los productos disponibles y realiza pedidos",
+    "viewOrders": "Ver Pedidos",
+    "viewOrdersDesc": "Seguimiento y gestión de tus pedidos",
+    "quickActions": "Acciones Rápidas",
+    "quickActionsDesc": "Accesos directos a funciones frecuentes",
+    "lastUpdated": "Actualizado",
+    "refresh": "Actualizar"
+  },
+  "auth": {
+    "accessDenied": "Acceso Denegado",
+    "accessDeniedMessage": "No tiene permiso para acceder a esta página.",
+    "returnToLogin": "Volver al Inicio de Sesión"
+  },
+  "manageCatalog": {
+    "subtitle": "Crear y gestionar artículos de la tienda",
+    "items": "Artículos de la Tienda"
+  },
+  "language": {
+    "en": "Inglés",
+    "es": "Español"
+  }
+}

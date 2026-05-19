@@ -1,0 +1,72 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "actions": "Actions",
+    "yes": "Yes",
+    "no": "No",
+    "confirm": "Confirm",
+    "optional": "Optional",
+    "note": "Note",
+    "back": "Back",
+    "next": "Next",
+    "viewAll": "View All",
+    "noResults": "No results found"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "catalog": "Catalog",
+    "orders": "Orders",
+    "cart": "Cart",
+    "manageCatalog": "Manage Catalog",
+    "signOut": "Sign Out"
+  },
+  "login": {
+    "title": "Mobius Store",
+    "subtitle": "Sign in to access the ordering platform",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "signIn": "Sign In",
+    "invalidCredentials": "Invalid email or password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {{name}}!",
+    "subtitle": "Your ordering platform overview",
+    "recentOrders": "Recent Orders",
+    "noOrders": "No orders yet",
+    "browseCatalog": "Browse Catalog",
+    "browseCatalogDesc": "Explore available products and place orders",
+    "viewOrders": "View Orders",
+    "viewOrdersDesc": "Track and manage your orders",
+    "quickActions": "Quick Actions",
+    "quickActionsDesc": "Shortcuts to frequently used features",
+    "lastUpdated": "Last updated",
+    "refresh": "Refresh"
+  },
+  "auth": {
+    "accessDenied": "Access Denied",
+    "accessDeniedMessage": "You don't have permission to access this page.",
+    "returnToLogin": "Return to Login"
+  },
+  "manageCatalog": {
+    "subtitle": "Create and manage store items",
+    "items": "Store Items"
+  },
+  "language": {
+    "en": "English",
+    "es": "Spanish"
+  }
+}
