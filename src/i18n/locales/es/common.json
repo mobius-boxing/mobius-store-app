@@ -123,10 +123,11 @@
     "colQuantity": "Cantidad"
   },
   "status": {
-    "submitted": "Enviado",
-    "processing": "En proceso",
-    "fulfilled": "Entregado",
-    "cancelled": "Cancelado"
+    "pending": "Pendiente",
+    "confirmed": "Confirmado",
+    "in_production": "En producción",
+    "shipped": "Enviado",
+    "delivered": "Entregado"
   },
   "language": {
     "en": "Inglés",

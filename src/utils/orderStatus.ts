@@ -6,14 +6,15 @@ type Translator = (key: string, options?: Record<string, unknown>) => string;
 
 type BadgeVariant = 'default' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
 
-// Backend store_orders status union: submitted | processing | fulfilled | cancelled.
-const KNOWN_STATUSES = ['submitted', 'processing', 'fulfilled', 'cancelled'];
+// Backend store_orders status flow: pending → confirmed → in_production → shipped → delivered.
+const KNOWN_STATUSES = ['pending', 'confirmed', 'in_production', 'shipped', 'delivered'];
 
 const STATUS_VARIANTS: Record<string, BadgeVariant> = {
-  submitted: 'info',
-  processing: 'warning',
-  fulfilled: 'success',
-  cancelled: 'danger',
+  pending: 'warning',
+  confirmed: 'info',
+  in_production: 'warning',
+  shipped: 'info',
+  delivered: 'success',
 };
 
 /** Translate a backend status; fall back to the raw value for unknown statuses. */
