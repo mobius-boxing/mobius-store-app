@@ -1,80 +1,113 @@
-// User types
-export interface User {
-  id: string;
+// ============================================================================
+// Identity (store users have NO role)
+// ============================================================================
+export interface StoreUser {
   uuid: string;
   email: string;
   firstName?: string;
   lastName?: string;
-  role: 'member' | 'admin' | 'superAdmin';
-  companyId?: string;
+  isActive?: boolean;
+  companyUuid?: string;
   companyName?: string;
-  isActive: boolean;
-  emailVerified: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
 
-// Company types
-export interface Company {
-  id: string;
-  uuid: string;
-  name: string;
-  description?: string;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-// Auth types
 export interface LoginCredentials {
   email: string;
   password: string;
 }
 
-export interface AuthUser {
-  id: string;
-  uuid: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  role: 'member' | 'admin' | 'superAdmin';
-  companyId?: string;
-  companyName?: string;
-}
-
-export interface LoginResponse {
+export interface StoreLoginResponse {
   token: string;
-  user: AuthUser;
+  storeUser: StoreUser;
 }
 
-// API response types
+export interface StoreMeResponse {
+  storeUser: StoreUser;
+  companyName: string;
+}
+
+// ============================================================================
+// Catalog
+// ============================================================================
+export interface CatalogBox {
+  uuid: string;
+  description: string;
+  unitsPerPackage: number;
+  unitsPerPallet: number;
+}
+
+export interface CatalogRoll {
+  uuid: string;
+  description: string;
+  minQuantity: number;
+}
+
+// ============================================================================
+// Orders
+// ============================================================================
+export type ItemType = 'box' | 'roll';
+
+// Backend-defined; render via i18n map with raw-value fallback.
+export type OrderStatus = string;
+
+export interface OrderItem {
+  uuid?: string;
+  itemType: ItemType;
+  sourceUuid: string;
+  description: string;
+  quantity: number;
+  unitsPerPallet?: number;
+}
+
+export interface Order {
+  uuid: string;
+  status: OrderStatus;
+  notes?: string;
+  createdAt: string;
+  items?: OrderItem[];
+  itemCount?: number;
+}
+
+export interface CreateOrderPayload {
+  items: Array<{ itemType: ItemType; sourceUuid: string; quantity: number }>;
+  notes?: string;
+}
+
+// ============================================================================
+// Cart (UI-only — never persisted server-side until submit)
+// ============================================================================
+export interface CartLine {
+  itemType: ItemType;
+  sourceUuid: string;
+  description: string;
+  quantity: number;
+  unitsPerPallet?: number; // boxes
+  minQuantity?: number; // rolls
+}
+
+export interface CartLineValidation {
+  valid: boolean;
+  errorKey?: string;
+  errorParams?: Record<string, unknown>;
+}
+
+export interface CartValidation {
+  lines: Record<string, CartLineValidation>; // keyed by `${itemType}:${sourceUuid}`
+  maxBoxMeasuresExceeded: boolean;
+}
+
+// ============================================================================
+// API envelope
+// ============================================================================
 export interface ApiResponse<T = any> {
   success: boolean;
-  message: string;
+  message?: string;
   data?: T;
-}
-
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
 }
 
 export interface ApiError {
   message: string;
   code?: string;
-  statusCode: number;
+  statusCode?: number;
   details?: Array<{ field: string; message: string }>;
-}
-
-// Navigation types
-export interface NavItem {
-  id: string;
-  label: string;
-  path?: string;
-  icon: string;
-  roles: string[];
-  children?: NavItem[];
 }

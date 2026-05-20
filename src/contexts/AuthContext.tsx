@@ -1,17 +1,17 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AuthUser, LoginCredentials, LoginResponse } from '../types';
-import { authApi } from '../services/api';
+import { LoginCredentials, StoreUser } from '../types';
+import { storeAuthApi, STORAGE_KEYS } from '../services/api';
 
-interface AuthContextType {
-  user: AuthUser | null;
+interface StoreAuthContextType {
+  storeUser: StoreUser | null;
+  companyName: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
-  logout: () => Promise<void>;
-  updateUser: (user: AuthUser) => void;
+  logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<StoreAuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -26,75 +26,95 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [storeUser, setStoreUser] = useState<StoreUser | null>(() => {
+    // Hydrate from cache to avoid a flash before bootstrap resolves.
+    try {
+      const cached = localStorage.getItem(STORAGE_KEYS.user);
+      return cached ? (JSON.parse(cached) as StoreUser) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [companyName, setCompanyName] = useState<string | null>(
+    () => localStorage.getItem(STORAGE_KEYS.companyName)
+  );
   const [isLoading, setIsLoading] = useState(true);
 
+  // Bootstrap: validate token via /api/store/me on mount.
   useEffect(() => {
-    const checkAuth = async () => {
+    const bootstrap = async () => {
+      const token = localStorage.getItem(STORAGE_KEYS.token);
+      if (!token) {
+        setStoreUser(null);
+        setCompanyName(null);
+        setIsLoading(false);
+        return;
+      }
       try {
-        const token = localStorage.getItem('store_token');
-        const savedUser = localStorage.getItem('store_user');
-
-        if (token && savedUser) {
-          // Verify token is still valid by fetching current user
-          const currentUser = await authApi.getCurrentUser();
-          setUser(currentUser);
-        }
-      } catch (error) {
-        // Token is invalid, clear storage
-        localStorage.removeItem('store_token');
-        localStorage.removeItem('store_user');
+        const { storeUser: me, companyName: company } = await storeAuthApi.me();
+        const merged: StoreUser = { ...me, companyName: company };
+        setStoreUser(merged);
+        setCompanyName(company);
+        localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(merged));
+        localStorage.setItem(STORAGE_KEYS.companyName, company);
+      } catch {
+        // Invalid/expired token: clear and stay unauthenticated.
+        localStorage.removeItem(STORAGE_KEYS.token);
+        localStorage.removeItem(STORAGE_KEYS.user);
+        localStorage.removeItem(STORAGE_KEYS.companyName);
+        setStoreUser(null);
+        setCompanyName(null);
       } finally {
         setIsLoading(false);
       }
     };
 
-    checkAuth();
+    bootstrap();
   }, []);
 
   const login = async (credentials: LoginCredentials): Promise<void> => {
+    const { token, storeUser: loggedUser } = await storeAuthApi.login(credentials);
+    localStorage.setItem(STORAGE_KEYS.token, token);
+    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(loggedUser));
+
+    // Fetch /me to get companyName (login response may omit it) and validate token.
+    let company = loggedUser.companyName ?? null;
     try {
-      const response: LoginResponse = await authApi.login(credentials);
+      const me = await storeAuthApi.me();
+      const merged: StoreUser = { ...me.storeUser, companyName: me.companyName };
+      company = me.companyName;
+      setStoreUser(merged);
+      localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(merged));
+    } catch {
+      // /me failed but login succeeded — fall back to the login payload.
+      setStoreUser(loggedUser);
+    }
 
-      // Save token and user to localStorage
-      localStorage.setItem('store_token', response.token);
-      localStorage.setItem('store_user', JSON.stringify(response.user));
-
-      setUser(response.user);
-    } catch (error) {
-      throw error;
+    setCompanyName(company);
+    if (company) {
+      localStorage.setItem(STORAGE_KEYS.companyName, company);
     }
   };
 
-  const logout = async (): Promise<void> => {
-    try {
-      await authApi.logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      localStorage.removeItem('store_token');
-      localStorage.removeItem('store_user');
-      setUser(null);
-    }
+  const logout = (): void => {
+    // No server /logout endpoint in the contract; JWT is stateless.
+    localStorage.removeItem(STORAGE_KEYS.token);
+    localStorage.removeItem(STORAGE_KEYS.user);
+    localStorage.removeItem(STORAGE_KEYS.companyName);
+    localStorage.removeItem(STORAGE_KEYS.cart);
+    setStoreUser(null);
+    setCompanyName(null);
+    window.location.href = '/login';
   };
 
-  const updateUser = (updatedUser: AuthUser): void => {
-    setUser(updatedUser);
-    localStorage.setItem('store_user', JSON.stringify(updatedUser));
-  };
-
-  const value: AuthContextType = {
-    user,
-    isAuthenticated: !!user,
+  const value: StoreAuthContextType = {
+    storeUser,
+    companyName,
+    isAuthenticated: !!storeUser,
     isLoading,
     login,
     logout,
-    updateUser,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

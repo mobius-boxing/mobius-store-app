@@ -4,14 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRoles?: string[];
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  children,
-  requiredRoles,
-}) => {
-  const { isAuthenticated, isLoading, user } = useAuth();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
 
   if (isLoading) {
@@ -24,25 +20,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  // Check role permissions if required
-  if (requiredRoles && user) {
-    const hasRequiredRole = requiredRoles.includes(user.role);
-    if (!hasRequiredRole) {
-      return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-secondary-900 mb-2">
-              Access Denied
-            </h1>
-            <p className="text-secondary-600">
-              You don't have permission to access this page.
-            </p>
-          </div>
-        </div>
-      );
-    }
   }
 
   return <>{children}</>;

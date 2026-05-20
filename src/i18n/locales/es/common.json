@@ -1,4 +1,7 @@
 {
+  "brand": {
+    "name": "Tienda"
+  },
   "common": {
     "loading": "Cargando...",
     "error": "Ocurrió un error",
@@ -16,20 +19,21 @@
     "note": "Nota",
     "back": "Volver",
     "next": "Siguiente",
-    "viewAll": "Ver Todo",
-    "noResults": "No se encontraron resultados"
+    "viewAll": "Ver todo",
+    "noResults": "No se encontraron resultados",
+    "required": "Requerido",
+    "close": "Cerrar",
+    "retry": "Reintentar"
   },
   "nav": {
-    "dashboard": "Panel",
     "catalog": "Catálogo",
     "orders": "Pedidos",
     "cart": "Carrito",
-    "manageCatalog": "Gestionar Catálogo",
-    "signOut": "Cerrar Sesión"
+    "signOut": "Cerrar sesión"
   },
   "login": {
-    "title": "Mobius Store",
-    "subtitle": "Inicie sesión para acceder a la plataforma de pedidos",
+    "title": "Tienda",
+    "subtitle": "Inicie sesión para realizar pedidos",
     "email": "Correo electrónico",
     "emailPlaceholder": "Ingrese su correo",
     "emailRequired": "El correo es requerido",
@@ -38,32 +42,82 @@
     "passwordPlaceholder": "Ingrese su contraseña",
     "passwordRequired": "La contraseña es requerida",
     "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
-    "signIn": "Iniciar Sesión",
+    "signIn": "Iniciar sesión",
     "invalidCredentials": "Correo o contraseña inválidos"
   },
-  "dashboard": {
-    "title": "Panel",
-    "welcome": "¡Bienvenido, {{name}}!",
-    "subtitle": "Resumen de tu plataforma de pedidos",
-    "recentOrders": "Pedidos Recientes",
-    "noOrders": "Aún no hay pedidos",
-    "browseCatalog": "Explorar Catálogo",
-    "browseCatalogDesc": "Explora los productos disponibles y realiza pedidos",
-    "viewOrders": "Ver Pedidos",
-    "viewOrdersDesc": "Seguimiento y gestión de tus pedidos",
-    "quickActions": "Acciones Rápidas",
-    "quickActionsDesc": "Accesos directos a funciones frecuentes",
-    "lastUpdated": "Actualizado",
-    "refresh": "Actualizar"
+  "catalog": {
+    "title": "Catálogo",
+    "subtitle": "Elija productos y cantidades para su pedido",
+    "tabBoxes": "Cajas",
+    "tabRolls": "Rollos",
+    "unitsPerPackage": "{{count}} u/paquete",
+    "unitsPerPallet": "{{count}} u/pallet",
+    "boxMinHelper": "Mín. {{min}} u (2 pallets)",
+    "rollMinHelper": "Mín. {{min}} rollos",
+    "quantity": "Cantidad",
+    "add": "Agregar",
+    "update": "Actualizar",
+    "inCart": "En el carrito",
+    "empty": "No hay productos disponibles",
+    "loadError": "No se pudo cargar el catálogo",
+    "retry": "Reintentar"
   },
-  "auth": {
-    "accessDenied": "Acceso Denegado",
-    "accessDeniedMessage": "No tiene permiso para acceder a esta página.",
-    "returnToLogin": "Volver al Inicio de Sesión"
+  "cart": {
+    "title": "Resumen del pedido",
+    "empty": "Su carrito está vacío",
+    "lines": "{{count}} líneas",
+    "items": "{{count}} artículos",
+    "boxMeasures": "Cajas: {{count}} / 8 medidas",
+    "review": "Revisar pedido",
+    "remove": "Quitar",
+    "clear": "Vaciar carrito",
+    "typeBox": "Caja",
+    "typeRoll": "Rollo",
+    "validation": {
+      "boxMin": "La cantidad debe ser ≥ {{min}} (2 pallets)",
+      "rollMin": "La cantidad debe ser ≥ {{min}}",
+      "positiveInt": "Ingrese una cantidad válida",
+      "maxBoxMeasures": "Máximo 8 medidas de caja por pedido",
+      "fixErrors": "Corrija los errores para continuar"
+    }
   },
-  "manageCatalog": {
-    "subtitle": "Crear y gestionar artículos de la tienda",
-    "items": "Artículos de la Tienda"
+  "order": {
+    "reviewTitle": "Revisar pedido",
+    "notes": "Notas (opcional)",
+    "notesPlaceholder": "Instrucciones o comentarios",
+    "confirm": "Confirmar pedido",
+    "submitting": "Enviando...",
+    "successTitle": "¡Pedido enviado!",
+    "successBody": "Su pedido #{{uuid}} fue recibido",
+    "viewOrder": "Ver pedido",
+    "keepShopping": "Seguir comprando",
+    "submitError": "No se pudo enviar el pedido"
+  },
+  "orders": {
+    "title": "Pedidos",
+    "subtitle": "Historial de sus pedidos",
+    "empty": "Aún no tiene pedidos",
+    "loadError": "No se pudieron cargar los pedidos",
+    "colDate": "Fecha",
+    "colStatus": "Estado",
+    "colItems": "Artículos",
+    "colId": "Pedido",
+    "itemCount": "{{count}} artículos",
+    "view": "Ver",
+    "backToList": "Volver a pedidos",
+    "detailTitle": "Detalle del pedido",
+    "notFound": "No se encontró el pedido",
+    "notesLabel": "Notas",
+    "noNotes": "Sin notas",
+    "colDescription": "Descripción",
+    "colType": "Tipo",
+    "colQuantity": "Cantidad"
+  },
+  "status": {
+    "submitted": "Enviado",
+    "processing": "En proceso",
+    "fulfilled": "Entregado",
+    "cancelled": "Cancelado"
   },
   "language": {
     "en": "Inglés",

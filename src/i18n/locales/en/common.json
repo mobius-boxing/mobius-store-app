@@ -1,4 +1,7 @@
 {
+  "brand": {
+    "name": "Store"
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
@@ -16,20 +19,21 @@
     "note": "Note",
     "back": "Back",
     "next": "Next",
-    "viewAll": "View All",
-    "noResults": "No results found"
+    "viewAll": "View all",
+    "noResults": "No results found",
+    "required": "Required",
+    "close": "Close",
+    "retry": "Retry"
   },
   "nav": {
-    "dashboard": "Dashboard",
     "catalog": "Catalog",
     "orders": "Orders",
     "cart": "Cart",
-    "manageCatalog": "Manage Catalog",
-    "signOut": "Sign Out"
+    "signOut": "Sign out"
   },
   "login": {
-    "title": "Mobius Store",
-    "subtitle": "Sign in to access the ordering platform",
+    "title": "Store",
+    "subtitle": "Sign in to place orders",
     "email": "Email",
     "emailPlaceholder": "Enter your email",
     "emailRequired": "Email is required",
@@ -38,32 +42,82 @@
     "passwordPlaceholder": "Enter your password",
     "passwordRequired": "Password is required",
     "passwordMinLength": "Password must be at least 6 characters",
-    "signIn": "Sign In",
+    "signIn": "Sign in",
     "invalidCredentials": "Invalid email or password"
   },
-  "dashboard": {
-    "title": "Dashboard",
-    "welcome": "Welcome back, {{name}}!",
-    "subtitle": "Your ordering platform overview",
-    "recentOrders": "Recent Orders",
-    "noOrders": "No orders yet",
-    "browseCatalog": "Browse Catalog",
-    "browseCatalogDesc": "Explore available products and place orders",
-    "viewOrders": "View Orders",
-    "viewOrdersDesc": "Track and manage your orders",
-    "quickActions": "Quick Actions",
-    "quickActionsDesc": "Shortcuts to frequently used features",
-    "lastUpdated": "Last updated",
-    "refresh": "Refresh"
+  "catalog": {
+    "title": "Catalog",
+    "subtitle": "Choose products and quantities for your order",
+    "tabBoxes": "Boxes",
+    "tabRolls": "Rolls",
+    "unitsPerPackage": "{{count}} u/package",
+    "unitsPerPallet": "{{count}} u/pallet",
+    "boxMinHelper": "Min. {{min}} u (2 pallets)",
+    "rollMinHelper": "Min. {{min}} rolls",
+    "quantity": "Quantity",
+    "add": "Add",
+    "update": "Update",
+    "inCart": "In cart",
+    "empty": "No products available",
+    "loadError": "Could not load the catalog",
+    "retry": "Retry"
   },
-  "auth": {
-    "accessDenied": "Access Denied",
-    "accessDeniedMessage": "You don't have permission to access this page.",
-    "returnToLogin": "Return to Login"
+  "cart": {
+    "title": "Order summary",
+    "empty": "Your cart is empty",
+    "lines": "{{count}} lines",
+    "items": "{{count}} items",
+    "boxMeasures": "Boxes: {{count}} / 8 measures",
+    "review": "Review order",
+    "remove": "Remove",
+    "clear": "Clear cart",
+    "typeBox": "Box",
+    "typeRoll": "Roll",
+    "validation": {
+      "boxMin": "Quantity must be ≥ {{min}} (2 pallets)",
+      "rollMin": "Quantity must be ≥ {{min}}",
+      "positiveInt": "Enter a valid quantity",
+      "maxBoxMeasures": "Max 8 box measures per order",
+      "fixErrors": "Fix the errors to continue"
+    }
   },
-  "manageCatalog": {
-    "subtitle": "Create and manage store items",
-    "items": "Store Items"
+  "order": {
+    "reviewTitle": "Review order",
+    "notes": "Notes (optional)",
+    "notesPlaceholder": "Instructions or comments",
+    "confirm": "Confirm order",
+    "submitting": "Submitting...",
+    "successTitle": "Order submitted!",
+    "successBody": "Your order #{{uuid}} was received",
+    "viewOrder": "View order",
+    "keepShopping": "Keep shopping",
+    "submitError": "Could not submit the order"
+  },
+  "orders": {
+    "title": "Orders",
+    "subtitle": "Your order history",
+    "empty": "No orders yet",
+    "loadError": "Could not load orders",
+    "colDate": "Date",
+    "colStatus": "Status",
+    "colItems": "Items",
+    "colId": "Order",
+    "itemCount": "{{count}} items",
+    "view": "View",
+    "backToList": "Back to orders",
+    "detailTitle": "Order detail",
+    "notFound": "Order not found",
+    "notesLabel": "Notes",
+    "noNotes": "No notes",
+    "colDescription": "Description",
+    "colType": "Type",
+    "colQuantity": "Quantity"
+  },
+  "status": {
+    "submitted": "Submitted",
+    "processing": "Processing",
+    "fulfilled": "Fulfilled",
+    "cancelled": "Cancelled"
   },
   "language": {
     "en": "English",

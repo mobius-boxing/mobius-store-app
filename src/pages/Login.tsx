@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { ShoppingBag } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { toApiError } from '../services/api';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import LanguageSwitcher from '../components/ui/LanguageSwitcher';
@@ -13,11 +15,18 @@ interface LoginForm {
 }
 
 const Login: React.FC = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // If already authenticated, skip the login form.
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      navigate('/catalog', { replace: true });
+    }
+  }, [isLoading, isAuthenticated, navigate]);
 
   const {
     register,
@@ -31,10 +40,9 @@ const Login: React.FC = () => {
 
     try {
       await login({ email: data.email, password: data.password });
-      navigate('/dashboard');
+      navigate('/catalog', { replace: true });
     } catch (err: any) {
-      console.error('Login error:', err);
-      setError(err.message || t('login.invalidCredentials'));
+      setError(toApiError(err).message || t('login.invalidCredentials'));
     } finally {
       setLoading(false);
     }
@@ -46,7 +54,7 @@ const Login: React.FC = () => {
         <div>
           <div className="flex justify-center">
             <div className="w-16 h-16 bg-primary-600 rounded-xl flex items-center justify-center">
-              <span className="text-2xl font-bold text-white">M</span>
+              <ShoppingBag className="h-8 w-8 text-white" />
             </div>
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-secondary-900">
@@ -60,7 +68,7 @@ const Login: React.FC = () => {
         <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-secondary-200">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4" role="alert">
                 <p className="text-sm text-red-800">{error}</p>
               </div>
             )}
